@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be Mine? 💖</title>
+  <style>
+    :root {
+      --bg1: #ffd6e8;
+      --bg2: #ffeccf;
+      --card: rgba(255, 255, 255, 0.8);
+      --accent: #ff4f81;
+      --accent-dark: #e13b6e;
+      --text: #4b2a3a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: clamp(16px, 3vw, 28px);
+      opacity: 0.35;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(20vh) scale(0.8);
+        opacity: 0;
+      }
+      25% { opacity: 0.35; }
+      75% { opacity: 0.35; }
+      to {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(92vw, 640px);
+      background: var(--card);
+      backdrop-filter: blur(6px);
+      border-radius: 24px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+      border: 2px solid rgba(255, 255, 255, 0.75);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--accent-dark);
+    }
+
+    .subtitle {
+      margin: 1rem 0 0.5rem;
+      font-size: clamp(1rem, 2.6vw, 1.25rem);
+      line-height: 1.5;
+    }
+
+    .note {
+      margin: 0.75rem 0 1.8rem;
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      opacity: 0.9;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 0.85rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: var(--accent);
+      transition: transform 0.15s ease, background 0.2s ease;
+      box-shadow: 0 6px 18px rgba(255, 79, 129, 0.35);
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .surprise {
+      margin-top: 1.4rem;
+      min-height: 1.8rem;
+      font-size: clamp(1rem, 2.8vw, 1.3rem);
+      font-weight: 700;
+      color: #b72453;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .surprise.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <main class="card">
+    <h1>Will You Be Mine? 💘</h1>
+    <p class="subtitle">
+      Hey beautiful, you make every day softer, sweeter, and brighter.
+    </p>
+    <p class="note">
+      From your smile to your sleepy voice... I adore everything about you. 🥹✨
+    </p>
+
+    <div class="buttons">
+      <button type="button" data-answer="yes">Yes 💕</button>
+      <button type="button" data-answer="already">Baby I’m already yours 🫶</button>
+    </div>
+
+    <p class="surprise" id="surpriseText" aria-live="polite"></p>
+  </main>
+
+  <script>
+    const heartsContainer = document.querySelector('.hearts');
+    const surpriseText = document.getElementById('surpriseText');
+    const buttons = document.querySelectorAll('button[data-answer]');
+
+    const surpriseMessage = 'I love you too, my sleeping beauty. I know you’re mine, hehe. ❤️';
+
+    for (let i = 0; i < 18; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'heart';
+      heart.textContent = ['💗', '💖', '💞', '💕'][Math.floor(Math.random() * 4)];
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${7 + Math.random() * 7}s`;
+      heart.style.animationDelay = `${Math.random() * 6}s`;
+      heartsContainer.appendChild(heart);
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        surpriseText.textContent = surpriseMessage;
+        surpriseText.classList.add('show');
+      });
+    });
+  </script>
+</body>
+</html>
